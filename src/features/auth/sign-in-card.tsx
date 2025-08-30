@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { SignInFlow } from "../type";
 import {
@@ -14,16 +14,14 @@ import { Separator } from "@/components/ui/separator";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { TriangleAlert } from "lucide-react";
 
 interface SignInCardProps {
   setState: (state: SignInFlow) => void;
 }
 const SignInCard = ({ setState }: SignInCardProps) => {
+  const [error, setError] = useState("");
   const { signIn } = useAuthActions();
-
-  const handleProviderSignIn = (value: "github" | "google") => {
-    signIn(value);
-  };
 
   const form = useForm({
     defaultValues: {
@@ -31,6 +29,20 @@ const SignInCard = ({ setState }: SignInCardProps) => {
       password: "",
     },
   });
+
+  const handlePasswordSignIn = form.handleSubmit(
+    async ({ email, password }) => {
+      try {
+        await signIn("password", { email, password, flow: "signIn" });
+      } catch {
+        setError("Invalid email or password");
+      }
+    },
+  );
+
+  const handleProviderSignIn = (value: "github" | "google") => {
+    signIn(value);
+  };
 
   return (
     <Card>
@@ -40,8 +52,16 @@ const SignInCard = ({ setState }: SignInCardProps) => {
           Use your email or another service to continue
         </CardDescription>
       </CardHeader>
-      <CardContent className="mt-2 space-y-4">
-        <form className="space-y-2.5">
+      <CardContent className="px-6 py-0">
+        {error && (
+          <div className="bg-destructive/15 text-destructive flex w-full items-center gap-x-2 rounded-md p-3 text-sm">
+            <TriangleAlert />
+            <p>{error}</p>
+          </div>
+        )}
+      </CardContent>
+      <CardContent className="space-y-4">
+        <form onSubmit={handlePasswordSignIn} className="space-y-2.5">
           <Input
             {...form.register("email", {
               required: true,
@@ -56,7 +76,11 @@ const SignInCard = ({ setState }: SignInCardProps) => {
             placeholder="Password"
             type="password"
           />
-          <Button type="submit" className="mt-2 w-full" size="lg">
+          <Button
+            type="submit"
+            className="mt-2 w-full cursor-pointer"
+            size="lg"
+          >
             Continue
           </Button>
         </form>
