@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConvexClientProvider } from "@/components/convex-client-provider";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
+import Modals from "@/components/modals";
+import { Toaster } from "@/components/ui/sonner";
+import { ReactQueryProvider } from "@/components/react-query-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,7 +26,13 @@ export default function RootLayout({
     <ConvexAuthNextjsServerProvider>
       <html lang="en">
         <body className={inter.className}>
-          <ConvexClientProvider>{children}</ConvexClientProvider>
+          <ConvexClientProvider>
+            <ReactQueryProvider>
+              <Toaster position="top-center" className="text-green-800" />
+              <Modals />
+              {children}
+            </ReactQueryProvider>
+          </ConvexClientProvider>
         </body>
       </html>
     </ConvexAuthNextjsServerProvider>
