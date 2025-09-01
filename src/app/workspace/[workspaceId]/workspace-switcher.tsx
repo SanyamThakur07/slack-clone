@@ -31,7 +31,10 @@ const WorkspaceSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button className="size-9 cursor-pointer bg-[#ABABAD] text-xl font-semibold text-slate-800 hover:bg-[#ABABAD]/80">
+        <Button
+          asChild
+          className="size-9 cursor-pointer bg-[#ABABAD] text-xl font-semibold text-slate-800 hover:bg-[#ABABAD]/80"
+        >
           {workspaceLoading ? (
             <Loader className="animate-spin" />
           ) : (
