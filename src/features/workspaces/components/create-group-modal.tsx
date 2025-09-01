@@ -12,13 +12,14 @@ import { useCreateWorkspace } from "../api/useCreateWorkspace";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Id } from "../../../../convex/_generated/dataModel";
 
 const CreateGroupModal = () => {
   const router = useRouter();
 
   const [open, setOpen] = useCreateWorkspaceModal();
 
-  const { mutate, isPending } = useCreateWorkspace();
+  const { mutateAsync, isPending } = useCreateWorkspace();
 
   const form = useForm({
     defaultValues: {
@@ -26,21 +27,11 @@ const CreateGroupModal = () => {
     },
   });
 
-  const handleCreateWorkspace = form.handleSubmit(({ name }) => {
-    mutate(
-      { name },
-      {
-        onSuccess: (workspaceId) => {
-          toast.success("Workspace Created");
-          router.push(`/workspace/${workspaceId}`);
-          handleClose();
-        },
-        onError: (error) => {
-          toast.error("Failed to create workspace");
-          console.error(error);
-        },
-      },
-    );
+  const handleCreateWorkspace = form.handleSubmit(async ({ name }) => {
+    const workspaceId: Id<"workspaces"> = await mutateAsync({ name });
+    toast.success("Workspace created");
+    router.push(`/workspace/${workspaceId}`);
+    handleClose();
   });
 
   const handleClose = () => {

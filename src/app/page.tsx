@@ -19,7 +19,7 @@ export default function Home() {
       return;
     }
     if (workspaceId) {
-      router.replace("/workspace/${workspaceId}");
+      router.push(`/workspace/${workspaceId}`);
     } else if (!open) {
       setOpen(true);
     }

@@ -1,7 +1,14 @@
+"use client";
+
+import { useGetWorkspace } from "@/features/workspaces/api/useGetWorkspace";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import React from "react";
 
 const WorkspaceIdPage = () => {
-  return <div>Hi there from workspace</div>;
+  const workspaceId = useWorkspaceId();
+  const { data } = useGetWorkspace({ id: workspaceId });
+
+  return <div>{JSON.stringify(data)}</div>;
 };
 
 export default WorkspaceIdPage;
