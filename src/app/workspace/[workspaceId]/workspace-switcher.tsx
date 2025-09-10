@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +24,7 @@ const WorkspaceSwitcher = () => {
   const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({
     id: workspaceId,
   });
-  const { data: workspaces, isLoading: workspacesLoading } = useGetWorkspaces();
+  const { data: workspaces } = useGetWorkspaces();
 
   const filteredWorkspaces = workspaces?.filter(
     (workspace) => workspace._id !== workspaceId,
@@ -30,11 +32,8 @@ const WorkspaceSwitcher = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Button
-          asChild
-          className="size-9 cursor-pointer bg-[#ABABAD] text-xl font-semibold text-slate-800 hover:bg-[#ABABAD]/80"
-        >
+      <DropdownMenuTrigger asChild>
+        <Button className="size-9 cursor-pointer bg-[#ABABAD] text-xl font-semibold text-slate-800 hover:bg-[#ABABAD]/80">
           {workspaceLoading ? (
             <Loader className="animate-spin" />
           ) : (
@@ -72,7 +71,7 @@ const WorkspaceSwitcher = () => {
         ))}
         <DropdownMenuItem
           onClick={() => setOpen(true)}
-          className="py- flex cursor-pointer px-1"
+          className="flex cursor-pointer px-1 py-2"
         >
           <div className="bg-muted-foreground/10 flex items-center justify-center rounded-md p-2">
             <Plus className="size-5" />

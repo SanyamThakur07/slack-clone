@@ -5,7 +5,7 @@ import React from "react";
 interface SidebarButtonProps {
   icon: LucideIcon;
   label: string;
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 const SidebarButton = ({ icon: Icon, label, isActive }: SidebarButtonProps) => {

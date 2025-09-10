@@ -1,6 +1,5 @@
 import UserButton from "@/features/auth/components/user-button";
 import React from "react";
-import WorkspaceSwitcher from "./workspace-switcher";
 import SidebarButton from "./sidebar-button";
 import {
   BellIcon,
@@ -8,16 +7,16 @@ import {
   MessageSquare,
   MoreHorizontal,
 } from "lucide-react";
+import WorkspaceSwitcher from "./workspace-switcher";
 
 const Sidebar = () => {
   return (
     <aside className="flex w-[90px] flex-col items-center gap-y-4 bg-[#481349] pt-5 pb-4">
       <WorkspaceSwitcher />
-      <SidebarButton icon={HomeIcon} label="Home" isActive />
-      <SidebarButton icon={MessageSquare} label="DMs" isActive />
-      <SidebarButton icon={BellIcon} label="Notifications" isActive />
-      <SidebarButton icon={MoreHorizontal} label="More" isActive />
-
+      <SidebarButton icon={HomeIcon} label="Home" />
+      <SidebarButton icon={MessageSquare} label="DMs" />
+      <SidebarButton icon={BellIcon} label="Notifications" />
+      <SidebarButton icon={MoreHorizontal} label="More" />
       <div className="mt-auto flex flex-col items-center justify-center">
         <UserButton />
       </div>
