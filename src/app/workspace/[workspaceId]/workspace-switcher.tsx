@@ -44,12 +44,10 @@ const WorkspaceSwitcher = () => {
       <DropdownMenuContent align="start" side="bottom" className="w-64">
         <DropdownMenuItem
           onClick={() => router.push(`/workspace/${workspaceId}`)}
-          className="flex cursor-pointer flex-col items-start justify-start"
+          className="flex cursor-pointer flex-col items-start justify-start gap-0.5"
         >
-          <div className="text-md font-semibold">{workspace?.name}</div>
-          <span className="text-muted-foreground text-xs">
-            Active workspace
-          </span>
+          <div className="text-lg font-bold">{workspace?.name}</div>
+          <p className="text-muted-foreground text-xs">Active workspace</p>
         </DropdownMenuItem>
 
         {filteredWorkspaces?.map((workspace) => (
