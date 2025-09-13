@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useDeleteWorkspace } from "@/features/workspaces/api/useRemoveWorkspace";
 import { useUpdateWorkspace } from "@/features/workspaces/api/useUpdateWorkspace";
+import { useConfirm } from "@/hooks/use-confirm";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { TrashIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -29,9 +30,13 @@ const PreferencesModal = ({
   open,
   setOpen,
 }: PreferencesModalProps) => {
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Are you sure?",
+    "This action is irreversible",
+  );
   const [editOpen, setEditOpen] = useState(false);
-  const router = useRouter();
 
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       name: initialValue,
@@ -46,7 +51,7 @@ const PreferencesModal = ({
 
   const handleClose = () => {
     setOpen(false);
-    form.reset;
+    form.reset();
   };
 
   const handleUpdateWorkspace = form.handleSubmit(async ({ name }) => {
@@ -64,6 +69,9 @@ const PreferencesModal = ({
   });
 
   const handleRemoveWorkspace = async () => {
+    const ok = await confirm();
+    if (!ok) return;
+
     try {
       await removeWorkspace.mutate({
         id: workspaceId,
@@ -77,7 +85,8 @@ const PreferencesModal = ({
   };
 
   return (
-    <div>
+    <>
+      <ConfirmDialog />
       <Dialog open={open} onOpenChange={handleClose}>
         <DialogContent>
           <DialogHeader>
@@ -144,7 +153,7 @@ const PreferencesModal = ({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 
