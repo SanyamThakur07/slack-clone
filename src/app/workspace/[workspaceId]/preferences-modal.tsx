@@ -123,7 +123,7 @@ const PreferencesModal = ({
                     placeholder="Workspace name e.g. 'Work', 'Personal', 'Home'"
                   />
                   <DialogFooter className="mt-3">
-                    <DialogClose>
+                    <DialogClose asChild>
                       <Button
                         className="cursor-pointer"
                         variant={"outline"}
