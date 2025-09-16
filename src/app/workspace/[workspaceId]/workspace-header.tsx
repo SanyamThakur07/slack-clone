@@ -39,7 +39,7 @@ const WorkspaceHeader = ({ workspace, isAdmin }: WorkspaceHeaderProps) => {
           </DropdownMenuTrigger>
           <DropdownMenuContent side="bottom" align="start" className="w-64">
             <DropdownMenuItem className="cursor-pointer">
-              <div className="mr-2 flex size-9 items-center justify-center rounded-md bg-[#ABABAD]/60 text-lg font-semibold">
+              <div className="mr-2 flex size-9 items-center justify-center rounded-md bg-[#616061] text-lg font-bold text-white">
                 {workspace.name.charAt(0).toUpperCase()}
               </div>
               <div className="flex flex-col">
