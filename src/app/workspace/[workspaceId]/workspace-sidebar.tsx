@@ -3,6 +3,7 @@ import { useGetWorkspace } from "@/features/workspaces/api/useGetWorkspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import {
   AlertTriangle,
+  HashIcon,
   Loader,
   MessageSquareText,
   SendHorizonal,
@@ -10,6 +11,8 @@ import {
 import React from "react";
 import WorkspaceHeader from "./workspace-header";
 import SidebarItem from "./sidebar-item";
+import { useGetChannels } from "@/features/channels/api/useGetChannels";
+import WorkspaceSection from "./workspace-section";
 
 const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
@@ -19,6 +22,10 @@ const WorkspaceSidebar = () => {
   });
   const { data: workspace, isLoading: workspaceLoading } = useGetWorkspace({
     id: workspaceId,
+  });
+
+  const { data: channels, isLoading: channelsLoading } = useGetChannels({
+    workspaceId,
   });
 
   if (memberLoading || workspaceLoading) {
@@ -59,6 +66,16 @@ const WorkspaceSidebar = () => {
           disabled
         />
       </div>
+      <WorkspaceSection label="Channnels" hint="New Channel" onNew={() => {}}>
+        {channels?.map((item) => (
+          <SidebarItem
+            key={item._id}
+            label={item.name}
+            id={item._id}
+            icon={HashIcon}
+          />
+        ))}
+      </WorkspaceSection>
     </div>
   );
 };
