@@ -6,14 +6,6 @@ import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-interface SidebarItemProps {
-  label: string;
-  id: string;
-  icon: LucideIcon;
-  disabled?: boolean;
-  variant?: VariantProps<typeof sidebarVariant>["variant"];
-}
-
 export const sidebarVariant = cva("flex items-center justify-start gap-1.5", {
   variants: {
     variant: {
@@ -25,6 +17,14 @@ export const sidebarVariant = cva("flex items-center justify-start gap-1.5", {
     variant: "default",
   },
 });
+
+interface SidebarItemProps {
+  label: string;
+  id: string;
+  icon: LucideIcon;
+  disabled?: boolean;
+  variant?: VariantProps<typeof sidebarVariant>["variant"];
+}
 
 const SidebarItem = ({
   label,
