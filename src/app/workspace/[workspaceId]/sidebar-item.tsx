@@ -6,7 +6,7 @@ import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const sidebarVariant = cva("flex items-center justify-start gap-1.5", {
+export const sidebarVariants = cva("flex items-center justify-start gap-1.5", {
   variants: {
     variant: {
       default: "text-[#F9EDFFCC]",
@@ -23,7 +23,7 @@ interface SidebarItemProps {
   id: string;
   icon: LucideIcon;
   disabled?: boolean;
-  variant?: VariantProps<typeof sidebarVariant>["variant"];
+  variant?: VariantProps<typeof sidebarVariants>["variant"];
 }
 
 const SidebarItem = ({
@@ -38,7 +38,7 @@ const SidebarItem = ({
     <Button
       variant={"transparent"}
       asChild
-      className={cn(sidebarVariant({ variant }))}
+      className={cn(sidebarVariants({ variant }))}
     >
       <Link href={`/workspace/${workspaceId}/channel/${id}`}>
         <Icon />

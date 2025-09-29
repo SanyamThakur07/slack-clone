@@ -89,7 +89,6 @@ const WorkspaceSidebar = () => {
             id={item._id}
             label={item.user.name}
             image={item.user.image}
-            // variant
           />
         ))}
       </WorkspaceSection>
